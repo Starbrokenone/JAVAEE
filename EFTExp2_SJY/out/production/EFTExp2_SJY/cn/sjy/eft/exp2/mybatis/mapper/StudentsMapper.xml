@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="cn.sjy.eft.exp2.mybatis.mapper.StudentsMapper">
+  	<!-- 添加学生信息 -->
+	<insert id="addStudent" parameterType="cn.sjy.eft.exp2.mybatis.po.Students">
+	    insert into students(name,age,gender,number,address)
+	    values(#{name},#{age},#{gender},#{number},#{address})
+	</insert>
+	
+	<!-- 更新学生信息 -->
+	<update id="updateStudent" parameterType="cn.sjy.eft.exp2.mybatis.po.Students">
+	    update students set
+	    name=#{name},age=#{age},gender=#{gender},number=#{number},address=#{address}
+	    where id=#{id}
+	</update>
+	
+	<!-- 删除学生信息 -->
+	<delete id="deleteStudent" parameterType="Integer">
+	    delete from students where id=#{id}
+	</delete>
+	 <!--根据学生编号获取学生信息 -->
+	<select id="findStudentById" parameterType="Integer"
+		resultType="cn.sjy.eft.exp2.mybatis.po.Students">
+		select * from students where id = #{id}
+	</select>
+	
+	<select id="findStudentByNameOrAddress" parameterType="cn.sjy.eft.exp2.mybatis.po.Students"
+		resultType="cn.sjy.eft.exp2.mybatis.po.Students">
+		select * from students where 1=1
+		<choose>
+			<when test="name !=null and name !=''">
+				and name like concat('%',#{name}, '%')
+			</when>
+			<when test="address !=null and address !=''">
+				and address= #{address}
+			</when>
+			<otherwise>
+				and number is not null
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

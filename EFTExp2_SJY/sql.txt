@@ -1,0 +1,15 @@
+
+create database db_sjy;
+use db_sjy;
+
+CREATE TABLE students (  
+  Id int(11) NOT NULL AUTO_INCREMENT,  
+  name varchar(20) NOT NULL,
+  age int(11) NOT NULL,  
+  gender varchar(255) DEFAULT NULL,  
+  number varchar(20) DEFAULT NULL, 
+  address varchar(20) DEFAULT NULL, 
+  status int(11) NOT NULL DEFAULT  1,  
+  PRIMARY KEY (id) );
+
+insert into students values(1,"张利云",20,"女",18834132361,"山西忻州",034100);
